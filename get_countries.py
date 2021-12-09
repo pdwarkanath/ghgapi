@@ -2,8 +2,8 @@ import psycopg2
 import json
 import os
 
-username = os.eniron['username']
-password = os.eniron['password']
+username = os.environ['username']
+password = os.environ['password']
 
 conn = psycopg2.connect(
     host="ghgapi.cap6ippkvuoh.us-east-2.rds.amazonaws.com",
