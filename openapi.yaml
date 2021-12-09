@@ -1,0 +1,98 @@
+openapi: 3.0.0
+servers:
+  - description: Greenhouse Gas Emissions API
+    url: https://ghgapi.dwarkanath.com
+info:
+  title: Greenhouse Gas Emissions API
+  description: Greenhouse Gas Emissions API
+  version: "1.0.0"
+  contact:
+    name: dk
+    url: https://dwarkanath.com
+paths:
+  /countries:
+  
+    get:
+      description: Lists all the countries with their id and available minimum start year and maximum end year
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/countries"
+  /country/{id}:
+    get:
+      description: Returns a list of values of greenhouse gas emissions for requested gases for a given country id between the start and end years (inclusive)
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 42
+            example: 0
+        - in: query
+          name: startYear
+          schema:
+            type: integer
+            minimum: 1990
+            maximum: 2014
+            example: 1992
+        - in: query
+          name: endYear
+          schema:
+            type: integer
+            minimum: 1990
+            maximum: 2014
+            example: 20
+        - in: query
+          name: gases
+          schema:
+            type: string
+        
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/emissions'
+        '400':
+          description: Invalid parameters
+    
+components:
+  schemas:
+    countries:
+      properties:
+        id:
+          type: integer
+          example: 0
+        country:
+          type: string
+          example: Australia
+        startYear:
+          type: integer
+          example: 1990
+        endYear:
+          type: integer
+          example: 2014
+    emissions:
+      properties:
+        id:
+          type: integer
+          example: 0
+        year:
+          type: integer
+          example: 1993
+        gas:
+          type: string
+          example: "CO2"
+        value:
+          type: number
+          example: 289142.267681326
