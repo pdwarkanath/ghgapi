@@ -1,6 +1,5 @@
 from connect import connect
 import json
-import os
 from psycopg2.extras import RealDictCursor
 
 conn = connect()

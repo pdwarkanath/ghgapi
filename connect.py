@@ -1,4 +1,5 @@
 import psycopg2
+import os
 
 username = os.environ['username']
 password = os.environ['password']
