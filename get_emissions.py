@@ -6,7 +6,9 @@ conn = connect()
 
 MAX_YEAR = 2014
 MIN_YEAR = 1990
-gases = {'CO2', 'GHGCO2', 'GHG', 'HFC', 'CH4', 'NF3', 'N2O', 'PFC', 'SF6', 'UNSP'}
+MAX_ID = 42
+MIN_ID = 0
+GASES = {'CO2', 'GHGCO2', 'GHG', 'HFC', 'CH4', 'NF3', 'N2O', 'PFC', 'SF6', 'UNSP'}
 
 def clean_gases(gases):
     return
