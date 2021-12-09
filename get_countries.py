@@ -1,16 +1,9 @@
-import psycopg2
+from connect import connect
 import json
 import os
 from psycopg2.extras import RealDictCursor
 
-username = os.environ['username']
-password = os.environ['password']
-
-conn = psycopg2.connect(
-    host="ghgapi.cap6ippkvuoh.us-east-2.rds.amazonaws.com",
-    database="ghgapi",
-    user=username,
-    password=password)
+conn = connect()
 
 def get_countries(event, context):
     cur = conn.cursor(cursor_factory=RealDictCursor)
