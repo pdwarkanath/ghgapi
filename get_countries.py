@@ -1,8 +1,8 @@
 import psycopg2
 import json
 import os
-from psycopg2.extras import RealDictCurso
-r
+from psycopg2.extras import RealDictCursor
+
 username = os.environ['username']
 password = os.environ['password']
 
