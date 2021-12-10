@@ -7,7 +7,7 @@ info:
     url: https://dwarkanath.com
   version: 1.0.0
 servers:
-- url: https://n98c92cb3h.execute-api.us-east-2.amazonaws.com/v1
+- url: https://ghgapi.dwarkanath.com/v1
   description: Greenhouse Gas Emissions API
 paths:
   /countries:
