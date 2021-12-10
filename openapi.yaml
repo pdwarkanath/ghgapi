@@ -48,12 +48,13 @@ paths:
             type: integer
             minimum: 1990
             maximum: 2014
-            example: 20
+            example: 2000
         - in: query
           name: gases
+          description: 'Possible values: CO2, GHGCO2, GHG, HFC, CH4, NF3, N2O, PFC, SF6, UNSP. Combine more than one gas with + sign'
           schema:
             type: string
-        
+            example: 'GHG+CO2'
       responses:
         '200':
           description: Success Response
