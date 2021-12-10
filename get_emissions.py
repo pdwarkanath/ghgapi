@@ -17,11 +17,14 @@ def clean_year(year):
     return
 
 def get_emissions(event, context):
-    country_id = int(event['params']['path']['id'])
+    if 'id' not in event['params']['path']:
+        return json.dumps({'status': 400, 'body': 'Country id required'})
+    else:
+        country_id = int(event['params']['path']['id'])
     start_year = int(event['params']['querystring']['startYear'])
     end_year = int(event['params']['querystring']['endYear'])
     gases = tuple(event['params']['querystring']['gases'].split('+'))
     cur = conn.cursor(cursor_factory=RealDictCursor)
     cur.execute('SELECT country_id as id, year, gas, value FROM emissions WHERE country_id = %s AND gas IN %s AND year BETWEEN %s AND %s', [country_id, gases, start_year, end_year])
     emissions = cur.fetchall()
-    return json.dumps(emissions)
+    return json.dumps({'status': 400, 'body': emissions})
