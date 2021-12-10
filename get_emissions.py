@@ -14,7 +14,7 @@ GASES = ('CO2', 'GHGCO2', 'GHG', 'HFC', 'CH4', 'NF3', 'N2O', 'PFC', 'SF6', 'UNSP
 def is_valid_number(num, min_val, max_val):
     if num.isdigit():
         num = int(num)
-        if id < min_val or id > max_val:
+        if num < min_val or num > max_val:
             return False
         else:
             return True        
