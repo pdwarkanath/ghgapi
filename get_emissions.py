@@ -1,5 +1,4 @@
 from connect import connect
-import json
 from psycopg2.extras import RealDictCursor
 
 conn = connect()
@@ -31,13 +30,13 @@ def is_valid_gases(gases):
 
 def get_emissions(event, context):
     if 'id' not in event['params']['path']:
-        return json.dumps({'status': 400, 'body': 'Country id required'})
+        return {'status': 400, 'body': 'Country id required'}
     else:
         country_id = event['params']['path']['id']
         if is_valid_number(country_id, MIN_ID, MAX_ID):
             country_id = int(country_id)
         else:
-            return json.dumps({'status': 400, 'body': 'Invalid parameter: id'})
+            return {'status': 400, 'body': 'Invalid parameter: id'}
     
     if 'startYear' not in event['params']['querystring']:
         start_year = 1990
@@ -46,7 +45,7 @@ def get_emissions(event, context):
         if is_valid_number(start_year, MIN_YEAR, MAX_YEAR):
             start_year = int(start_year)
         else:
-            return json.dumps({'status': 400, 'body': 'Invalid parameter: startYear'})
+            return {'status': 400, 'body': 'Invalid parameter: startYear'}
     
     if 'endYear' not in event['params']['querystring']:
         end_year = 2014
@@ -55,19 +54,19 @@ def get_emissions(event, context):
         if is_valid_number(end_year, MIN_YEAR, MAX_YEAR):
             end_year = int(end_year)
         else:
-            return json.dumps({'status': 400, 'body': 'Invalid parameter: endYear'})
+            return {'status': 400, 'body': 'Invalid parameter: endYear'}
     
     if start_year > end_year:
-        return json.dumps({'status': 400, 'body': 'Invalid parameters: startYear must be less than endYear'})
+        return {'status': 400, 'body': 'Invalid parameters: startYear must be less than endYear'}
 
     if 'gases' not in event['params']['querystring']:
         gases = GASES
     else:
         gases = tuple(event['params']['querystring']['gases'].split('+'))
         if not is_valid_gases(gases):
-            return json.dumps({'status': 400, 'body': 'Invalid parameter: gases'})
+            return {'status': 400, 'body': 'Invalid parameter: gases'}
 
     cur = conn.cursor(cursor_factory=RealDictCursor)
     cur.execute('SELECT country_id as id, year, gas, value FROM emissions WHERE country_id = %s AND gas IN %s AND year BETWEEN %s AND %s', [country_id, gases, start_year, end_year])
     emissions = cur.fetchall()
-    return json.dumps({'status': 200, 'body': emissions})
+    return {'status': 200, 'body': emissions}
