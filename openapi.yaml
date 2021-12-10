@@ -1,7 +1,7 @@
 openapi: 3.0.0
 servers:
   - description: Greenhouse Gas Emissions API
-    url: https://ghgapi.dwarkanath.com
+    url: https://n98c92cb3h.execute-api.us-east-2.amazonaws.com/v1
 info:
   title: Greenhouse Gas Emissions API
   description: Greenhouse Gas Emissions API
