@@ -65,7 +65,7 @@ def get_emissions(event, context):
     else:
         gases = tuple(event['params']['querystring']['gases'].split('+'))
         if not is_valid_gases(gases):
-            return json.dumps({'status': 400, 'body': 'Invalid parameter: endYear'})
+            return json.dumps({'status': 400, 'body': 'Invalid parameter: gases'})
 
     cur = conn.cursor(cursor_factory=RealDictCursor)
     cur.execute('SELECT country_id as id, year, gas, value FROM emissions WHERE country_id = %s AND gas IN %s AND year BETWEEN %s AND %s', [country_id, gases, start_year, end_year])
