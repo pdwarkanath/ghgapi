@@ -7,7 +7,7 @@ MAX_YEAR = 2014
 MIN_YEAR = 1990
 MAX_ID = 42
 MIN_ID = 0
-GASES = ('CO2', 'GHGCO2', 'GHG', 'HFC', 'CH4', 'NF3', 'N2O', 'PFC', 'SF6', 'UNSP')
+GASES = {'CO2', 'GHGCO2', 'GHG', 'HFC', 'CH4', 'NF3', 'N2O', 'PFC', 'SF6', 'UNSP'}
 
 
 def is_valid_number(num, min_val, max_val):
@@ -60,7 +60,7 @@ def get_emissions(event, context):
         return {'status': 400, 'body': 'Invalid parameters: startYear must be less than endYear'}
 
     if 'gases' not in event['params']['querystring']:
-        gases = GASES
+        gases = tuple(GASES)
     else:
         gases = tuple(event['params']['querystring']['gases'].split('+'))
         if not is_valid_gases(gases):
